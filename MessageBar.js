@@ -23,10 +23,6 @@ let windowHeight = Dimensions.get('window').height
 
 class MessageBar extends Component {
 
-  static defaultProps = {
-    innerContainerStyles: [],
-  };
-
   constructor(props) {
     super(props)
 
@@ -111,6 +107,7 @@ class MessageBar extends Component {
       /* Position of the alert and Animation Type the alert is shown */
       position: props.position || 'top',
       animationType: props.animationType,
+      innerContainerStyles: props.innerContainerStyles || [],
     };
   }
 
@@ -364,12 +361,13 @@ class MessageBar extends Component {
     // Set the animation transformation depending on the chosen animationType, or depending on the state's position if animationType is not overridden
     this._apllyAnimationTypeTransformation();
 
+    console.log(this.state);
     return (
       <Animated.View style={{ transform: this.animationTypeTransform, backgroundColor: this.state.backgroundColor, borderColor: this.state.strokeColor, borderBottomWidth: 1, position: 'absolute', top: this.state.viewTopOffset, bottom: this.state.viewBottomOffset, left: this.state.viewLeftOffset, right: this.state.viewRightOffset, paddingTop: this.state.viewTopInset, paddingBottom: this.state.viewBottomInset, paddingLeft: this.state.viewLeftInset, paddingRight: this.state.viewRightInset }}>
         <TouchableOpacity onPress={()=>{this._alertTapped()}} style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', padding: 10 }} >
             { this.renderImage() }
-            <View style={[{ flex: 1, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'center', marginLeft: 10 }, this.props.innerContainerStyles]} >
+            <View style={[{ flex: 1, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'center', marginLeft: 10 }, this.state.innerContainerStyles]} >
               { this.renderTitle() }
               { this.renderMessage() }
             </View>
