@@ -23,6 +23,10 @@ let windowHeight = Dimensions.get('window').height
 
 class MessageBar extends Component {
 
+  static defaultProps = {
+    innerContainerStyles: [],
+  };
+
   constructor(props) {
     super(props)
 
@@ -365,7 +369,7 @@ class MessageBar extends Component {
         <TouchableOpacity onPress={()=>{this._alertTapped()}} style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', padding: 10 }} >
             { this.renderImage() }
-            <View style={{ flex: 1, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'center', marginLeft: 10 }} >
+            <View style={[{ flex: 1, flexDirection: 'column', alignSelf: 'stretch', justifyContent: 'center', marginLeft: 10 }, this.props.innerContainerStyles]} >
               { this.renderTitle() }
               { this.renderMessage() }
             </View>
